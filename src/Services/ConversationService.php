@@ -97,6 +97,27 @@ class ConversationService
 
         return $common ? $this->conversation->findOrFail($common[0]) : null;
     }
+    
+     /**
+     * Get all private conversations between two users
+     * 
+     * @param Model $participantOne
+     * @param Model $participantTwo
+     * @return null
+     */
+    public function allBetween(Model $participantOne, Model $participantTwo) {
+        $participantOneConversationIds = $this->conversation
+            ->participantConversations($participantOne, true)
+            ->pluck('id');
+
+        $participantTwoConversationIds = $this->conversation
+            ->participantConversations($participantTwo, true)
+            ->pluck('id');
+
+        $common = $this->getConversationsInCommon($participantOneConversationIds, $participantTwoConversationIds);
+
+        return $common ? $this->conversation->whereIn('id', $common)->get() : null;
+    }
 
     /**
      * Get Conversations with latest message.
