@@ -99,7 +99,7 @@ class ConversationService
     }
     
      /**
-     * Get all private conversations between two users
+     * Get all direct conversations between two users
      * 
      * @param Model $participantOne
      * @param Model $participantTwo
@@ -112,6 +112,27 @@ class ConversationService
 
         $participantTwoConversationIds = $this->conversation
             ->participantConversations($participantTwo, true)
+            ->pluck('id');
+
+        $common = $this->getConversationsInCommon($participantOneConversationIds, $participantTwoConversationIds);
+
+        return $common ? $this->conversation->whereIn('id', $common)->get() : null;
+    }
+    
+         /**
+     * Get all private conversations between two users
+     * 
+     * @param Model $participantOne
+     * @param Model $participantTwo
+     * @return null
+     */
+    public function common(Model $participantOne, Model $participantTwo) {
+        $participantOneConversationIds = $this->conversation
+            ->participantConversations($participantOne, false)
+            ->pluck('id');
+
+        $participantTwoConversationIds = $this->conversation
+            ->participantConversations($participantTwo, false)
             ->pluck('id');
 
         $common = $this->getConversationsInCommon($participantOneConversationIds, $participantTwoConversationIds);
