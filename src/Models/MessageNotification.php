@@ -5,6 +5,7 @@ namespace Musonza\Chat\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Musonza\Chat\BaseModel;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Musonza\Chat\ConfigurationManager;
 
 class MessageNotification extends BaseModel
