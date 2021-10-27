@@ -61,7 +61,11 @@ class MessageNotification extends BaseModel
         }
         self::insert($notification);
     }
-
+    
+    public function conversation(): BelongsTo {
+        return $this->belongsTo(Conversation::class);
+    }
+    
     public function markAsRead()
     {
         $this->is_seen = 1;
