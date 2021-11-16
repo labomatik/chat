@@ -57,7 +57,7 @@ class ChatServiceProvider extends ServiceProvider
      */
     public function publishMigrations()
     {
-        $timestamp = date('Y_m_d_His', time());
+        $timestamp = date('Y_m_d_His', time() - 500); // Make sure it's first
         $stub = __DIR__.'/../database/migrations/create_chat_tables.php';
         $target = $this->app->databasePath().'/migrations/'.$timestamp.'_create_chat_tables.php';
 

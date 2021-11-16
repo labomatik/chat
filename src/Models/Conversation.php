@@ -30,15 +30,6 @@ class Conversation extends BaseModel
         'private'        => 'boolean',
     ];
 
-    public function delete()
-    {
-        if ($this->participants()->count()) {
-            throw new DeletingConversationWithParticipantsException();
-        }
-
-        return parent::delete();
-    }
-
     /**
      * Conversation participants.
      *
