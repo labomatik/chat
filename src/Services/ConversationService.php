@@ -97,10 +97,10 @@ class ConversationService
 
         return $common ? $this->conversation->findOrFail($common[0]) : null;
     }
-    
+
      /**
      * Get all direct conversations between two users
-     * 
+     *
      * @param Model $participantOne
      * @param Model $participantTwo
      * @return null
@@ -118,10 +118,10 @@ class ConversationService
 
         return $common ? $this->conversation->whereIn('id', $common)->get() : null;
     }
-    
+
          /**
      * Get all private conversations between two users
-     * 
+     *
      * @param Model $participantOne
      * @param Model $participantTwo
      * @return null
