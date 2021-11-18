@@ -9,9 +9,16 @@ use Musonza\Chat\Models\Participation;
 
 trait Messageable
 {
-    public function conversations()
+
+    public function conversations($withArchive = false)
     {
-        return $this->participation->pluck('conversation');
+        if (true === $withArchive) {
+            return $this->participation()->with(['conversation' => function ($query) {
+                return $query->withTrashed();
+            }])->get()->pluck('conversation');
+        }
+
+        return $this->participation()->whereHas('conversation')->get()->pluck('conversation');
     }
 
     /**
