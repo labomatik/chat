@@ -12,13 +12,17 @@ trait Messageable
 
     public function conversations($withArchive = false)
     {
-        if (true === $withArchive) {
-            return $this->participation()->with(['conversation' => function ($query) {
-                return $query->withTrashed();
-            }])->get()->pluck('conversation');
-        }
+        return $this
+            ->participation()
+            ->with(['conversation' => function ($query) use ($withArchive) {
+                if (true === $withArchive) {
+                    $query = $query->withTrashed();
+                }
 
-        return $this->participation()->whereHas('conversation')->get()->pluck('conversation');
+                return $query->with('last_message');
+            }])
+            ->get()
+            ->pluck('conversation');
     }
 
     /**
