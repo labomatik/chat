@@ -22,7 +22,8 @@ trait Messageable
                 return $query->with('last_message');
             }])
             ->get()
-            ->pluck('conversation');
+            ->pluck('conversation')
+            ->whereNotNull();
     }
 
     /**
