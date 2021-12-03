@@ -19,7 +19,7 @@ trait Messageable
                     $query = $query->withTrashed();
                 }
 
-                return $query->with('last_message');
+                return $query->with(['last_message', 'participants']);
             }])
             ->get()
             ->pluck('conversation')
