@@ -3,13 +3,14 @@
 namespace Musonza\Chat\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-//use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\DataStore\Transformers\UserResource;
 use Musonza\Chat\BaseModel;
 use Musonza\Chat\ConfigurationManager;
 
 class Participation extends BaseModel
 {
-//    use SoftDeletes;
+    use SoftDeletes;
 
     protected $table = ConfigurationManager::PARTICIPATION_TABLE;
     protected $fillable = [

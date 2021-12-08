@@ -65,7 +65,15 @@ class ChatServiceProvider extends ServiceProvider
         $stub_softdeletes = __DIR__.'/../database/migrations/add_softdeletes_to_chat_conversations_table.php';
         $target_softdeletes = $this->app->databasePath().'/migrations/'.$timestamp.'_add_softdeletes_to_chat_conversations_table.php';
 
-        $this->publishes([$stub => $target, $stub_softdeletes => $target_softdeletes], 'chat.migrations');
+        $timestamp = date('Y_m_d_His', time());
+        $stub_participation = __DIR__.'/../database/migrations/add_softdeletes_to_chat_participation_table.php';
+        $participation_softdeletes = $this->app->databasePath().'/migrations/'.$timestamp.'_add_softdeletes_to_chat_participation_table.php';
+
+        $this->publishes([
+            $stub => $target,
+            $stub_softdeletes => $target_softdeletes,
+            $stub_participation => $participation_softdeletes
+            ], 'chat.migrations');
     }
 
     /**
