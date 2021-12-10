@@ -9,10 +9,28 @@ use Musonza\Chat\ConfigurationManager;
 use Musonza\Chat\Eventing\AllParticipantsDeletedMessage;
 use Musonza\Chat\Eventing\EventGenerator;
 use Musonza\Chat\Eventing\MessageWasSent;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\MediaCollections\File;
 
-class Message extends BaseModel
+class Message extends BaseModel implements HasMedia
 {
     use EventGenerator;
+    use InteractsWithMedia;
+
+    public const ALLOWED_FILETYPES = [
+        'application/pdf',
+        'image/jpeg',
+        'image/jpg',
+        'image/png',
+        'image/jpeg',
+        'application/msword',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'application/vnd.ms-excel',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        'text/csv',
+        'text/plain'
+    ];
 
     protected $fillable = [
         'body',
@@ -183,5 +201,19 @@ class Message extends BaseModel
             ->update(['flagged' => $this->flagged($participant) ? false : true]);
 
         return $this;
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('message_attachments')
+            ->useDisk('message_attachments')
+            ->acceptsFile(function (File $file) {
+                return in_array($file->mimeType, self::ALLOWED_FILETYPES);
+            });
+    }
+
+    public function attachments()
+    {
+        return $this->getMedia('message_attachments');
     }
 }
