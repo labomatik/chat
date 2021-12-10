@@ -205,8 +205,8 @@ class Message extends BaseModel implements HasMedia
 
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('message_attachments')
-            ->useDisk('message_attachments')
+        $this->addMediaCollection('messages_attachments')
+            ->useDisk('messages_attachments')
             ->acceptsFile(function (File $file) {
                 return in_array($file->mimeType, self::ALLOWED_FILETYPES);
             });
@@ -214,6 +214,6 @@ class Message extends BaseModel implements HasMedia
 
     public function attachments()
     {
-        return $this->getMedia('message_attachments');
+        return $this->getMedia('messages_attachments');
     }
 }
