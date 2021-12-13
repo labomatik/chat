@@ -42,6 +42,7 @@ class MessageWasSent extends Event implements ShouldBroadcast
                 'type'            => $this->message->type,
                 'created_at'      => $this->message->created_at,
                 'sender'          => $this->message->sender,
+                'attachments'     => $this->message->attachments,
             ],
         ];
     }
