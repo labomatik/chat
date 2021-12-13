@@ -55,7 +55,7 @@ class Message extends BaseModel implements HasMedia
         'flagged' => 'boolean',
     ];
 
-    protected $appends = ['sender'];
+    protected $appends = ['sender', 'attachments'];
 
     public function participation()
     {
@@ -215,5 +215,18 @@ class Message extends BaseModel implements HasMedia
     public function attachments()
     {
         return $this->getMedia('messages_attachments');
+    }
+
+    public function getAttachmentsAttribute()
+    {
+        return $this->attachments()->map(function($item) {
+            return (object) [
+              'uuid' => $item->uuid,
+              'file_name' => $item->file_name,
+                'size' => $item->size,
+                'created_at' => $item->created_at,
+                'original_url' => $item->getFullUrl()
+            ];
+        });
     }
 }
