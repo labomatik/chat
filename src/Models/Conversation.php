@@ -30,6 +30,11 @@ class Conversation extends BaseModel
         'private'        => 'boolean',
     ];
 
+    public const TYPE_GENERAL = 'general';
+    public const TYPE_CONTRACT = 'contract';
+    public const TYPE_OFFER = 'offer';
+    public const TYPE_SUPPORT = 'support';
+
     /**
      * Conversation participants.
      *
