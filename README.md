@@ -310,6 +310,7 @@ Chat::conversation($conversation)->addParticipants([$participantModel, $particip
 Chat::conversation($conversation)->setParticipant($participantModel)->getMessages()
 ```
 
+
 #### Get user conversations by type
 
 ```php
@@ -330,6 +331,11 @@ $conversations = Chat::conversations()->setParticipant($participantModel)->get()
 
 ```php
 $messages = Chat::conversations()->setParticipant($participantModel)->limit(25)->page(1)->get();
+```
+
+#### Get recent messages with archived conversation
+```php
+$messages = Chat::conversations(true)->setParticipant($participantModel)->limit(25)->page(1)->get();
 ```
 
 #### Pagination

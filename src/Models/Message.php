@@ -54,7 +54,8 @@ class Message extends BaseModel implements HasMedia
      */
     protected $casts = [
         'flagged' => 'boolean',
-        'data' => 'array'
+        'data' => 'encrypted:array',
+        'body' => 'encrypted'
     ];
 
     protected $appends = ['sender', 'attachments'];
