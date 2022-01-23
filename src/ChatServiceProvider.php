@@ -23,7 +23,7 @@ class ChatServiceProvider extends ServiceProvider
         $this->publishMigrations();
         $this->publishConfig();
 
-        if (config('musonza_chat.should_load_routes')) {
+        if (config('chat.should_load_routes')) {
             require __DIR__.'/Http/routes.php';
         }
     }

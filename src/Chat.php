@@ -126,17 +126,17 @@ class Chat
      */
     public static function broadcasts()
     {
-        return config('musonza_chat.broadcasts');
+        return config('chat.broadcasts');
     }
 
     public static function sentMessageEvent()
     {
-        return config('musonza_chat.sent_message_event');
+        return config('chat.sent_message_event');
     }
 
     public static function senderFieldsWhitelist()
     {
-        $fields = config('musonza_chat.sender_fields_whitelist', []);
+        $fields = config('chat.sender_fields_whitelist', []);
 
         return (is_array($fields) && !empty($fields)) ? $fields : null;
     }

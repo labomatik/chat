@@ -24,7 +24,7 @@ class ConversationController extends Controller
 
     private function setUp()
     {
-        if ($conversationTransformer = config('musonza_chat.transformers.conversation')) {
+        if ($conversationTransformer = config('chat.transformers.conversation')) {
             $this->conversationTransformer = app($conversationTransformer);
         }
     }
