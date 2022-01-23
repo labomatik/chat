@@ -36,6 +36,7 @@ class Message extends BaseModel implements HasMedia
         'body',
         'participation_id',
         'type',
+        'data'
     ];
 
     protected $table = ConfigurationManager::MESSAGES_TABLE;
@@ -53,6 +54,7 @@ class Message extends BaseModel implements HasMedia
      */
     protected $casts = [
         'flagged' => 'boolean',
+        'data' => 'array'
     ];
 
     protected $appends = ['sender', 'attachments'];
@@ -102,12 +104,13 @@ class Message extends BaseModel implements HasMedia
      *
      * @return Model
      */
-    public function send(Conversation $conversation, string $body, Participation $participant, string $type = 'text'): Model
+    public function send(Conversation $conversation, string $body, Participation $participant, string $type = 'text', array $data = []): Model
     {
         $message = $conversation->messages()->create([
             'body'             => $body,
             'participation_id' => $participant->getKey(),
             'type'             => $type,
+            'data'             => $data
         ]);
 
         if (Chat::broadcasts()) {

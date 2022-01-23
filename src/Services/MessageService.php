@@ -13,6 +13,7 @@ class MessageService
     use SetsParticipants;
 
     protected $type = 'text';
+    protected $data = [];
     protected $body;
     /**
      * @var CommandBus
@@ -50,6 +51,13 @@ class MessageService
     public function type(string $type)
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function data(array $data)
+    {
+        $this->data = $data;
 
         return $this;
     }
@@ -120,7 +128,7 @@ class MessageService
             throw new Exception('Message receiver has not been set');
         }
 
-        $command = new SendMessageCommand($this->recipient, $this->body, $this->sender, $this->type);
+        $command = new SendMessageCommand($this->recipient, $this->body, $this->sender, $this->type, $this->data);
 
         return $this->commandBus->execute($command);
     }

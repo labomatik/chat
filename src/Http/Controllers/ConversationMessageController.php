@@ -19,7 +19,7 @@ class ConversationMessageController extends Controller
 
     private function setUp()
     {
-        if ($messageTransformer = config('musonza_chat.transformers.message')) {
+        if ($messageTransformer = config('chat.transformers.message')) {
             $this->messageTransformer = app($messageTransformer);
         }
     }

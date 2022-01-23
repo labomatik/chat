@@ -1,10 +1,5 @@
-<p align="left"><img src="menu.png" alt="chat" width="130px"></p>
 
-[![Build Status](https://travis-ci.org/musonza/chat.svg?branch=master)](https://travis-ci.org/musonza/chat)
-[![Downloads](https://poser.pugx.org/musonza/chat/d/total.svg)](https://packagist.org/packages/musonza/chat)
-[![Packagist](https://img.shields.io/packagist/v/musonza/chat.svg)](https://packagist.org/packages/musonza/chat)
-<a href="https://codeclimate.com/github/musonza/chat/maintainability"><img src="https://api.codeclimate.com/v1/badges/85f152eae2a04b25783d/maintainability" /></a>
-## Chat
+## Chat 
 
 Create a Chat application for your multiple Models
 
@@ -45,18 +40,17 @@ Create a Chat application for your multiple Models
 
 </details>
 
-Checkout a simple [Demo Application](https://github.com/musonza/chat-demo)
-
 ## Introduction
 
-This package allows you to add a chat system to your Laravel ^5.4 application
+This package allows you to add a chat system to your Laravel application
+Forked from musonza/chat
 
 ## Installation
 
 From the command line, run:
 
 ```
-composer require musonza/chat
+composer require labomatik/chat
 ```
 
 Publish the assets:
@@ -65,11 +59,11 @@ Publish the assets:
 php artisan vendor:publish
 ```
 
-This will publish database migrations and a configuration file `musonza_chat.php` in the Laravel config folder.
+This will publish database migrations and a configuration file `chat.php` in the Laravel config folder.
 
 ## Configuration
 
-See `musonza_chat.php` for configuration
+See `chat.php` for configuration
 
 Run the migrations:
 
@@ -181,6 +175,19 @@ The default message type is `text`. If you want to specify custom type you can c
 ```php
 $message = Chat::message('http://example.com/img')
 		->type('image')
+		->from($model)
+		->to($conversation)
+		->send();
+```
+
+#### To add more details about a message
+
+Sometimes you might want to add details about a message. For example, when the message type is an attachment, and you want to add details such as attachment's filename, and attachment's file url, you can call the `data()` function and pass your data as an array.
+
+```php
+$message = Chat::message('Attachment 1')
+		->type('attachment')
+		->data(['file_name' => 'post_image.jpg', 'file_url' => 'http://example.com/post_img.jpg'])
 		->from($model)
 		->to($conversation)
 		->send();
@@ -377,7 +384,7 @@ Need to have more control on the data returned from the package routes? You can
 specify your own Model transformers and take advantage of [Fractal](http://fractal.thephpleague.com/).
 
 All you need to do is specify the location of your transformers in the configuration
-file `musonza_chat.php` as follows:
+file `chat.php` as follows:
 
 ```php
 /**

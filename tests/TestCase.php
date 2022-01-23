@@ -44,7 +44,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
 
     protected function migrateTestTables()
     {
-        $config = config('musonza_chat');
+        $config = config('chat');
         $userModel = app($config['user_model']);
         $this->userModelPrimaryKey = $userModel->getKeyName();
     }
@@ -95,12 +95,12 @@ class TestCase extends \Orchestra\Testbench\TestCase
 //             ],
 //         ]);
 
-        $app['config']->set('musonza_chat.user_model', 'Musonza\Chat\Tests\Helpers\Models\User');
-        $app['config']->set('musonza_chat.sent_message_event', 'Musonza\Chat\Eventing\MessageWasSent');
-        $app['config']->set('musonza_chat.broadcasts', false);
-        $app['config']->set('musonza_chat.user_model_primary_key', null);
-        $app['config']->set('musonza_chat.routes.enabled', true);
-        $app['config']->set('musonza_chat.should_load_routes', true);
+        $app['config']->set('chat.user_model', 'Musonza\Chat\Tests\Helpers\Models\User');
+        $app['config']->set('chat.sent_message_event', 'Musonza\Chat\Eventing\MessageWasSent');
+        $app['config']->set('chat.broadcasts', false);
+        $app['config']->set('chat.user_model_primary_key', null);
+        $app['config']->set('chat.routes.enabled', true);
+        $app['config']->set('chat.should_load_routes', true);
     }
 
     protected function getPackageProviders($app)
