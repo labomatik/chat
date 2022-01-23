@@ -23,9 +23,9 @@ class Conversation extends BaseModel
 {
     use SoftDeletes;
     protected $table = ConfigurationManager::CONVERSATIONS_TABLE;
-    protected $fillable = ['data', 'direct_message'];
+    protected $fillable = ['data', 'direct_message','company'];
     protected $casts = [
-        'data'           => 'array',
+        'data'           => 'encrypted:array',
         'direct_message' => 'boolean',
         'private'        => 'boolean',
     ];
@@ -165,7 +165,11 @@ class Conversation extends BaseModel
         }
 
         /** @var Conversation $conversation */
-        $conversation = $this->create(['data' => $payload['data'], 'direct_message' => (bool) $payload['direct_message']]);
+        $conversation = $this->create([
+            'data' => $payload['data'],
+            'direct_message' => (bool) $payload['direct_message'],
+            'company' => $payload['company']
+        ]);
 
         if ($payload['participants']) {
             $conversation->addParticipants($payload['participants']);
@@ -368,6 +372,10 @@ class Conversation extends BaseModel
 
         if (isset($options['filters']['direct_message'])) {
             $paginator = $paginator->where('c.direct_message', (bool) $options['filters']['direct_message']);
+        }
+
+        if (isset($options['filters']['companies'])) {
+            $paginator = $paginator->whereIn('c.company', (array) $options['filters']['companies']);
         }
 
         return $paginator

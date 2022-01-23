@@ -44,15 +44,17 @@ class Chat
      *
      * @param array $participants
      * @param array $data
+     * @param $company
      *
      * @return Conversation
      */
-    public function createConversation(array $participants, array $data = [])
+    public function createConversation(array $participants, $company, array $data = [])
     {
         $payload = [
             'participants'   => $participants,
             'data'           => $data,
             'direct_message' => $this->conversationService->directMessage,
+            'company'        => $company,
         ];
 
         return $this->conversationService->start($payload);

@@ -233,6 +233,20 @@ class ConversationService
         return $this;
     }
 
+    /**
+     * Sets the conversation company to query for direct conversations.
+     *
+     * @param array $companies
+     *
+     * @return $this
+     */
+    public function withCompanies($companies)
+    {
+        $this->filters['companies'] = $companies;
+        return $this;
+    }
+
+
     public function getParticipation($participant = null)
     {
         $participant = $participant ?? $this->participant;
