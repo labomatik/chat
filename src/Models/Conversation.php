@@ -63,6 +63,18 @@ class Conversation extends BaseModel
     }
 
     /**
+     * Return the first message in a Conversation.
+     *
+     * @return HasOne
+     */
+    public function first_message()
+    {
+        return $this->hasOne(Message::class)
+            ->orderBy($this->tablePrefix.'messages.id', 'asc')
+            ->with('participation');
+    }
+
+    /**
      * Messages in conversation.
      *
      * @return HasMany
