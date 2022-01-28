@@ -29,7 +29,7 @@ class Participation extends BaseModel
      */
     public function conversation()
     {
-        return $this->belongsTo(Conversation::class, 'conversation_id');
+        return $this->belongsTo(Conversation::class, 'conversation_id')->withTrashed();
     }
 
     public function messageable()
