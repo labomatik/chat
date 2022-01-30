@@ -58,8 +58,6 @@ class Message extends BaseModel implements HasMedia
         'body' => 'encrypted'
     ];
 
-    protected $appends = ['sender', 'attachments'];
-
     public function participation()
     {
         return $this->belongsTo(Participation::class, 'participation_id')->withTrashed();
