@@ -46,7 +46,7 @@ class ConversationService
 
     public function getById($id)
     {
-        return $this->conversation->find($id);
+        return $this->conversation->withTrashed()->find($id);
     }
 
     /**
